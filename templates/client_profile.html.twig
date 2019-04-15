@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block title %}Профиль{% endblock %}
+{% block body %}
+    <hr>
+    <h1 class="text-center">Профиль</h1>
+    <hr>
+    <p>ФИО: {{ client.fullname }}</p>
+    <p>Статус: {{ client.getStatusName() }}</p>
+{% endblock %}

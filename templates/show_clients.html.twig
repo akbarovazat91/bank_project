@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block title %}Клиенты{% endblock %}
+{% block body %}
+    <hr>
+    <h1 class="text-center">Все клиенты</h1>
+    <hr>
+    <table class="table table-dark table-striped">
+        <thead>
+        <tr>
+            <th>ФИО</th>
+            <th>Статус</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+        <tbody>
+         {% for client in clients %}
+             <tr>
+                 <td><a class="client_name" href="{{ path('client_profile', { id: client.id }) }}"> {{ client.fullName }} </a></td>
+                 <td>{{ client.getStatusName() }}</td>
+                 <td>
+                     <a class="btn btn-primary" href="{{ path('change_status', { id: client.id }) }}">Поменять статус</a>
+                     {% if (client.lastCreditIsPaid()) %}
+                         <a class="btn btn-primary" href="{{ path('get_a_loan', { id: client.id }) }}">Оформить кредит</a>
+                     {% else %}
+                         <a class="btn btn-primary" href="#">Провести платёж</a>
+                     {% endif %}
+                 </td>
+             </tr>
+         {% endfor %}
+        </tbody>
+    </table>
+    <hr>
+    <a class="btn btn-success" href="{{ path('create_client') }}">Добавить клиента</a>
+{% endblock %}
+{% block stylesheets %}
+    <style>
+        .client_name {
+            color: #ffffff;
+            text-decoration: none !important;
+        }
+    </style>
+{% endblock %}
